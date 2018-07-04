@@ -54,6 +54,7 @@ final class ArticleListViewController: TableModelViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
         tableView.contentInset = .init(top: 0, left: 0, bottom: 50, right: 0)
+        tableView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 50, right: 0)
 
         setupAdView()
 
