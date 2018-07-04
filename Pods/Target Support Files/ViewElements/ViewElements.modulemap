@@ -1,6 +1,0 @@
-framework module ViewElements {
-  umbrella header "ViewElements-umbrella.h"
-
-  export *
-  module * { export * }
-}
