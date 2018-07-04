@@ -6,6 +6,7 @@
 //
 
 import ViewElements
+import GoogleMobileAds
 
 protocol ArticleListViewControllerDelegate: class {
     func articleList(_ viewController: ArticleListViewController, didTapArticle article: Article)
@@ -13,10 +14,11 @@ protocol ArticleListViewControllerDelegate: class {
 
 final class ArticleListViewController: TableModelViewController {
 
-    private lazy var fetcher = BlognoneArticlesFetcher()
     private lazy var refreshControl = UIRefreshControl()
-    private var articles: [Article]?
+    private lazy var ad = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
 
+    private lazy var fetcher = BlognoneArticlesFetcher()
+    private var articles: [Article]?
     weak var delegate: ArticleListViewControllerDelegate?
 
     override func setupTable() {
@@ -28,10 +30,32 @@ final class ArticleListViewController: TableModelViewController {
         ]}
     }
 
+    private func setupAdView() {
+        ad.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(ad)
+        view.bringSubview(toFront: ad)
+        ad.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        ad.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        ad.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        ad.rootViewController = self
+        let req = GADRequest()
+        req.testDevices = [kGADSimulatorID]
+        ad.load(req)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        ad.adSize =  UIDevice.current.orientation.isPortrait ? kGADAdSizeSmartBannerPortrait : kGADAdSizeSmartBannerLandscape
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 50, right: 0)
+
+        setupAdView()
 
         fetcher.delegate = self
         fetcher.fetchNews()

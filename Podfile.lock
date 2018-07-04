@@ -1,20 +1,24 @@
 PODS:
   - AEXML (4.3.0)
+  - Google-Mobile-Ads-SDK (7.31.0)
   - ViewElements (0.1.7)
 
 DEPENDENCIES:
   - AEXML
+  - Google-Mobile-Ads-SDK
   - ViewElements
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AEXML
+    - Google-Mobile-Ads-SDK
     - ViewElements
 
 SPEC CHECKSUMS:
   AEXML: bae92c01e0da64132fd72f748721cda07466032b
+  Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   ViewElements: ba0d09da0edf63e5e89bc272476a1c77933c3112
 
-PODFILE CHECKSUM: 7eb90af1ac5bf0acdc6eb4c725ed692324e49b02
+PODFILE CHECKSUM: 87a6d88eb5e544ad4da7fc263d5227f0345df384
 
 COCOAPODS: 1.5.3
